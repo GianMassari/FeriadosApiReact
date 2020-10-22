@@ -7,15 +7,23 @@ class formProximoFeriado extends React.Component{
 constructor(props){
 super(props)
 this.state={
-    anio:"",
-    pais:"",
-    fechaInicio:this.props.anio,
-    fechaFin:this.props.pais,
-dias:this.props.date,
-feriadoPuente:this.props.localName,
+ 
  }
 }
     render(){
+      console.log(this.props);
+      const proximoFeriado= this.props.proximoFeriado;
+      const contenido= proximoFeriado.map(element =>
+      <tr>
+     <th scope="row">{element.countryCode}</th>
+     <td>{element.date}</td>
+     <td>{element.localName}</td>
+     <td>{element.name}</td>
+     <td>{element.fixed}</td>
+     <td>{element.global}</td>
+     <td>{element.launchYear}</td>
+    </tr>
+      )
      return(
         <div>
            <h2 className="d-flex justify-content-center">Proximos Feriados</h2>
@@ -32,15 +40,7 @@ feriadoPuente:this.props.localName,
     </tr>
   </thead>
   <tbody>
-    <tr>
-     <th scope="row">{this.state.countryCode}</th>
-     <td>{this.state.date}</td>
-     <td>{this.state.localName}</td>
-     <td>{this.state.name}</td>
-     <td>{this.state.fixed}</td>
-     <td>{this.state.global}</td>
-     <td>{this.state.launchYear}</td>
-    </tr>
+   {contenido}
   </tbody>
 </table>
 

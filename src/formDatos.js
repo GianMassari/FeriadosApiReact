@@ -1,4 +1,11 @@
 import React from 'react';
+import FormFeriados from './formFeriados';
+import FormFinDeSemana from './formFinDeSemana';
+import FormProximoFeriado from './formProximoFeriado';
+
+const obtenerFeriados = require("./libraryFeriados");
+const obtenerFinSemana = require("./libraryFinSemana");
+const obtenerProximosFeriados = require("./libraryProximosFeriados");
 
 
 class FormDatos extends React.Component{
@@ -7,15 +14,63 @@ super(props)
 this.state={
   anio:"2020",
   pais:"AR",
+  boton:"",
+feriado:"",
+proximoFeriado:"",
+finDeSemana:"",
+cantFeriados:0,
 }
 
 
 //SETEO DE LAS FUNCIONES
 this.handlerSelectPais = this.handlerSelectPais.bind(this);
 this.handlerSelectAnio = this.handlerSelectAnio.bind(this);
-this.consultarFeriados=this.consultarFeriados(this);
-this.consultarFinDeSemana=this.consultarFinDeSemana(this);
+this.handlerFeriadoApi=this.handlerFeriadoApi.bind(this);
+this.handlerProximoFeriadoApi=this.handlerProximoFeriadoApi.bind(this);
+this.handlerFinDeSemanaApi=this.handlerFinDeSemanaApi.bind(this);
+
 }
+
+handlerFeriadoApi(event){
+  let botonApretado=event.target.value;
+obtenerFeriados(this.state.anio,this.state.pais).then(feriado => {
+  let cantidad= feriado.length;
+   this.setState({
+     boton:botonApretado,
+       feriado:feriado,
+       cantFeriados:cantidad,
+    })
+  }).catch((err) => {
+    alert(err.message + "catch");
+ 
+  });
+}
+
+handlerProximoFeriadoApi(event){
+  let botonApretado=event.target.value;
+ obtenerProximosFeriados(this.state.pais).then(proximoFeriado =>{
+  this.setState({
+    boton:botonApretado,
+      proximoFeriado:proximoFeriado,
+   })
+ }).catch((err) => {
+   alert('El pais que ingreso no es correcto');
+ });
+}
+
+handlerFinDeSemanaApi(event){
+  let botonApretado=event.target.value;
+obtenerFinSemana(this.state.anio,this.state.pais).then(finDeSemana => {
+   this.setState({
+    boton:botonApretado,
+    finDeSemana:finDeSemana,
+    })
+  }).catch((err) => {
+    alert(err.message + "catch");
+ 
+  });
+}
+
 
 handlerSelectPais(event){
   let pais = event.target.value;
@@ -31,24 +86,16 @@ handlerSelectPais(event){
   })
   }
 
-  consultarFeriados(){
-    this.props.handlerFeriadoApi(this.state.anio,this.state.pais,"BotonFeriado");
-  }
-
-  consultarFinDeSemana(){
-    this.props.handlerFinDeSemanaApi(this.state.anio,this.state.pais,"BotonFinDe");
-    
-  }
-
-  consultarProximoFeriado(){
-    this.props.handlerProximoFeriadoApi(this.state.anio,this.state.pais,"BotonProximo");
-    
-  }
-    
-  
-
   render(){
-     return(
+    let boton;
+    if(this.state.boton==="BotonFeriado"){
+      boton= <FormFeriados feriado={this.state.feriado} cantidad={this.state.cantFeriados}/>
+    }else if(this.state.boton==="BotonFinDe"){
+ boton= <FormFinDeSemana finDeSemana={this.state.finDeSemana}/>
+    }else if (this.state.boton==="BotonProximo"){
+ boton= <FormProximoFeriado proximoFeriado={this.state.proximoFeriado}/>
+    }
+return(
 <div class="form-group border">
   <div className="col-4 offset-4">
   <label for="paises">Paises</label>
@@ -69,18 +116,21 @@ handlerSelectPais(event){
   </select>
   </div>
   <div className="d-flex justify-content-center"> 
-  <button onClick={this.consultarFeriados} class="btn btn-primary m-1">
+  <button value="BotonFeriado" onClick={this.handlerFeriadoApi} class="btn btn-primary m-1">
     Consultar Feriados
   </button>
-  <button onClick={this.consultarFinDeSemana} class="btn btn-primary m-1" >
+  <button value="BotonFinDe" onClick={this.handlerFinDeSemanaApi} class="btn btn-primary m-1" >
     Consultar fin de Semanas
   </button>
-  <button onClick={this.consultarFinDeSemana} class="btn btn-primary m-1">
+  <button value ="BotonProximo" onClick={this.handlerProximoFeriadoApi} class="btn btn-primary m-1">
     Consultar Proximos Feriados
   </button>
   </div>
+  {/* RESULTADOS segun el boton apretado*/ }
+{boton}
 </div>
-     )
+
+)
     }
 }
 

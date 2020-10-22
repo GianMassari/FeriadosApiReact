@@ -2,7 +2,7 @@ const rp=require("request-promise");
 
 function obtenerFeriados(year,countryCode){
     var options={
-        uri:"https://date.nager.at/api/v2/publicholidays/"+ year +"/"+ countryCode,
+        uri:"https://date.nager.at/api/v2/publicholidays/2020/AR",
         json:true
     }
 

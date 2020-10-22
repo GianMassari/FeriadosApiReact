@@ -1,21 +1,23 @@
 import React from 'react';
 
-
-
-
 class formFinDeSemana extends React.Component{
 constructor(props){
 super(props)
 this.state={
-    anio:"",
-    pais:"",
-    fechaInicio:this.props.anio,
-    fechaFin:this.props.pais,
-dias:this.props.date,
-feriadoPuente:this.props.localName,
+    
  }
 }
     render(){
+      const finDeSemana= this.props.finDeSemana;
+      console.log(finDeSemana)
+  const contenido = finDeSemana.map((element) =>
+  <tr>
+  <th scope="row">{element.startDate}</th>
+  <td>{element.endDate}</td>
+  <td>{element.dayCount}</td>
+  <td>{element.needBridgeDay}</td>
+ </tr>
+  )
      return(
         <div>
           <h2 className="d-flex justify-content-center">Fines de Semanas</h2>
@@ -29,16 +31,9 @@ feriadoPuente:this.props.localName,
     </tr>
   </thead>
   <tbody>
-    <tr>
-     <th scope="row">{this.state.countryCode}</th>
-     <td>{this.state.date}</td>
-     <td>{this.state.localName}</td>
-     <td>{this.state.name}</td>
-    </tr>
+    {contenido}
   </tbody>
 </table>
-
-
         </div>
      )
 
