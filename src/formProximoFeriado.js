@@ -11,6 +11,30 @@ this.state={
  }
 }
     render(){
+      function VerFixed(props){
+        let fixed=props.fixed
+        if(fixed===true){
+     return <td >Es Fijo</td>
+        }else{
+         return <td >No es Fijo</td>
+        }
+       }
+       function VerGlobal(props){
+        let global=props.global
+        if(global===true){
+     return <td >Es global</td>
+        }else{
+         return <td >No es global</td>
+        }
+       }
+       function VerFecha(props){
+        let fecha=props.fecha
+        if(fecha!=null){
+          return <td>{fecha}</td>
+        }else{
+          return <td>No hay fecha Registrada</td>
+        }
+      }
       console.log(this.props);
       const proximoFeriado= this.props.proximoFeriado;
       const contenido= proximoFeriado.map(element =>
@@ -19,9 +43,9 @@ this.state={
      <td>{element.date}</td>
      <td>{element.localName}</td>
      <td>{element.name}</td>
-     <td>{element.fixed}</td>
-     <td>{element.global}</td>
-     <td>{element.launchYear}</td>
+     <VerFixed fixed={element.fixed}/>
+     <VerGlobal global={element.global}/>
+     <VerFecha fecha={element.launchYear}/>
     </tr>
       )
      return(
