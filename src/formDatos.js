@@ -100,10 +100,10 @@ return(
   <div className="col-4 offset-4">
   <label for="paises">Paises</label>
   <select class="form-control mb-2" id="paises" name="paises" onChange={this.handlerSelectPais}>
-    <option value="AR" selected>AR</option>
-    <option value="US">US</option>
-    <option value="ES">ES</option>
-    <option value="UY">UY</option>
+    <option value="AR" selected>Argentina</option>
+    <option value="US">Estados Unidos</option>
+    <option value="ES">España</option>
+    <option value="UY">Uruguay</option>
   </select>
   </div>
   <div className="col-4 offset-4">

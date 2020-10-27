@@ -58,12 +58,12 @@ return(
 <thead className="thead-dark">
  <tr>
    <th className="justify-content-center" scope="col">Codigo de Pais</th>
-   <th className="justify-content-center"scope="col">Fecha</th>
-   <th className="justify-content-center"scope="col">Nombre local</th>
-   <th className="justify-content-center"scope="col">Nombre en ingles</th>
-   <th className="justify-content-center"scope="col">Fijo</th>
+   <th className="justify-content-center" scope="col">Fecha</th>
+   <th className="justify-content-center" scope="col">Nombre local</th>
+   <th className="justify-content-center" scope="col">Nombre en ingles</th>
+   <th className="justify-content-center" scope="col">Fijo</th>
    <th className="justify-content-center" scope="col">Global</th>
-   <th className="justify-content-center"scope="col">Fecha de creacion</th>
+   <th className="justify-content-center" scope="col">Fecha de creacion</th>
  </tr>
 </thead>
 <tbody>
